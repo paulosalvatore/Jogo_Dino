@@ -1,16 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Dinossauro : MonoBehaviour
 {
+    [Header("Pulo")]
     [Range(0f, 180f)]
     [SerializeField]
     private float forcaPulo = 90f;
 
     [SerializeField]
-    private Rigidbody2D rb;
-
-    [SerializeField]
-    private Animator anim;
+    private float distanciaNecessariaDoChao = 1.5f;
 
     private bool _estaNoChao;
 
@@ -18,6 +17,7 @@ public class Dinossauro : MonoBehaviour
 
     private bool _puloTravado;
 
+    [Header("Queda")]
     [Range(0f, 30f)]
     [SerializeField]
     private float velocidadeQuedaNormal = 5f;
@@ -26,13 +26,29 @@ public class Dinossauro : MonoBehaviour
     [SerializeField]
     private float velocidadeQuedaAcelerada = 20f;
 
-    [SerializeField]
-    private float distanciaNecessariaDoChao = 1.5f;
+    // Movimentação
 
     private bool _andando = true;
 
+    // Posicionamento
+
+    private float _posicaoYInicial;
+
+    [Header("Componentes")]
+
+    [SerializeField]
+    private Rigidbody2D rb;
+
+    [SerializeField]
+    private Animator anim;
+
     [SerializeField]
     private Jogo jogo;
+
+    private void Awake()
+    {
+        _posicaoYInicial = transform.position.y;
+    }
 
     private void Update()
     {
@@ -84,6 +100,17 @@ public class Dinossauro : MonoBehaviour
 
         var abaixado = _estaNoChao && Input.GetKey(KeyCode.DownArrow);
         anim.SetBool("Abaixado", abaixado);
+
+        // Clamp Posição Y
+        var posicao = transform.position;
+        if (posicao.y < _posicaoYInicial)
+        {
+            transform.position = new Vector3(
+                posicao.x,
+                _posicaoYInicial,
+                posicao.z
+            );
+        }
     }
 
     private void FixedUpdate()

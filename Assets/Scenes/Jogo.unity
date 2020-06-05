@@ -148,7 +148,7 @@ RectTransform:
   m_GameObject: {fileID: 65293590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 1896095390}
   m_RootOrder: 0
@@ -178,16 +178,16 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 73ed6d3e1f7e94440a3c4d5031a9277f, type: 3}
-    m_FontSize: 22
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 111
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: GAME OVER
 --- !u!222 &65293593
@@ -198,63 +198,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65293590}
   m_CullTransparentMesh: 0
---- !u!1 &194439715
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 194439717}
-  - component: {fileID: 194439716}
-  m_Layer: 0
-  m_Name: GerarVoadores
-  m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &194439716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194439715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c22577435911d489fdb3c7a3a1a5da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabsDisponiveis:
-  - {fileID: 3916392623572084307, guid: e59d8e71e4be20249a6a655d28f60c31, type: 3}
-  delayInicial:
-    min: 2
-    max: 3
-  distanciaEntreObjetos:
-    min: 15
-    max: 100
-  posicaoY:
-    min: -0.8
-    max: 2
-  pontuacaoMinima: 0
-  obstaculo: 1
-  jogo: {fileID: 219666948}
---- !u!4 &194439717
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194439715}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.51, y: 1.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &219666947
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,9 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6916b5cb7be95946ad70d2180f5fc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidade: 5
-  modificadorAumentoVelocidade: 0.2
-  velocidadeMaxima: 50
+  velocidade: 6
+  modificadorAumentoVelocidade: 0.05
+  velocidadeMaxima: 20
   botaoReiniciar: {fileID: 1896095389}
   textoPontuacao: {fileID: 1886060065}
   textoPontuacaoAnim: {fileID: 1886060067}
@@ -307,7 +250,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &290500266
 GameObject:
@@ -413,7 +356,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 391657aa50d078548904b1fded0c52dc, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -630,7 +573,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 525261ecbfd7ced4a8d7ffd7affec954, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -834,11 +777,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forcaPulo: 90
+  distanciaNecessariaDoChao: 1
+  velocidadeQuedaNormal: 5
+  velocidadeQuedaAcelerada: 15
   rb: {fileID: 463899666}
   anim: {fileID: 463899669}
-  velocidadeQuedaNormal: 5
-  velocidadeQuedaAcelerada: 20
-  distanciaNecessariaDoChao: 1
   jogo: {fileID: 219666948}
 --- !u!95 &463899669
 Animator:
@@ -907,10 +850,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -953,7 +896,7 @@ RectTransform:
   - {fileID: 1886060063}
   - {fileID: 647147971}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1113,7 +1056,7 @@ MonoBehaviour:
   posicaoVoadorY:
     min: 0
     max: 3
-  pontuacaoMinimaVoadores: 0
+  pontuacaoMinimaVoadores: 400
   jogo: {fileID: 219666948}
 --- !u!1 &544772576
 GameObject:
@@ -1146,7 +1089,7 @@ Transform:
   - {fileID: 333490743}
   - {fileID: 2131123108}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &647147970
 GameObject:
@@ -1305,7 +1248,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645004380
 GameObject:
@@ -1370,7 +1313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1886060062
 GameObject:
@@ -1643,7 +1586,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2104473923
 MonoBehaviour:
@@ -1714,7 +1657,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 21ef190e791c91c4e829a02b92df72da, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1932,7 +1875,7 @@ PrefabInstance:
     - target: {fileID: 6233159941263175334, guid: 61f29ac1b4db10e49ae7431241a0405d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6233159941263175334, guid: 61f29ac1b4db10e49ae7431241a0405d,
         type: 3}
@@ -2001,7 +1944,7 @@ PrefabInstance:
     - target: {fileID: 6233159941263175334, guid: 61f29ac1b4db10e49ae7431241a0405d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6233159941263175334, guid: 61f29ac1b4db10e49ae7431241a0405d,
         type: 3}
@@ -2070,7 +2013,7 @@ PrefabInstance:
     - target: {fileID: 6233159941263175334, guid: 61f29ac1b4db10e49ae7431241a0405d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6233159941263175334, guid: 61f29ac1b4db10e49ae7431241a0405d,
         type: 3}
