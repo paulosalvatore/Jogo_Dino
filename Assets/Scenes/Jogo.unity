@@ -230,6 +230,7 @@ MonoBehaviour:
   velocidade: 6
   modificadorAumentoVelocidade: 0.05
   velocidadeMaxima: 20
+  tempoLiberarReinicioJogo: 1
   botaoReiniciar: {fileID: 1896095389}
   textoPontuacao: {fileID: 1886060065}
   textoPontuacaoAnim: {fileID: 1886060067}
@@ -666,9 +667,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463899665}
+  - component: {fileID: 463899668}
   - component: {fileID: 463899664}
   - component: {fileID: 463899666}
-  - component: {fileID: 463899668}
   - component: {fileID: 463899669}
   m_Layer: 0
   m_Name: Dinossauro
@@ -776,7 +777,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5850c59ea905f843a672dad61ef67ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forcaPulo: 90
+  forcaPuloFraco: 70
+  forcaPuloForte: 30
+  tempoNecessarioPuloForte: 0.1
   distanciaNecessariaDoChao: 1
   velocidadeQuedaNormal: 5
   velocidadeQuedaAcelerada: 15
@@ -1002,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &543073328
 Transform:
   m_ObjectHideFlags: 0

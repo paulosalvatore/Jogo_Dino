@@ -18,6 +18,12 @@ public class Jogo : MonoBehaviour
 
     internal bool Rodando;
 
+    [Range(0f, 3f)]
+    [SerializeField]
+    private float tempoLiberarReinicioJogo = 1f;
+
+    private bool _reiniciarJogoLiberado;
+
     [Header("Elementos de Interface")]
     [SerializeField]
     private GameObject botaoReiniciar;
@@ -99,6 +105,7 @@ public class Jogo : MonoBehaviour
         // Reiniciar jogo
 
         if (!Rodando
+            && _reiniciarJogoLiberado
             && (Input.GetKeyDown(KeyCode.UpArrow)
                 || Input.GetKeyDown(KeyCode.DownArrow)))
         {
@@ -129,6 +136,8 @@ public class Jogo : MonoBehaviour
 
             ExibirMelhorPontuacao();
         }
+
+        Invoke(nameof(LiberarReiniciarJogo), tempoLiberarReinicioJogo);
     }
 
     private void ExibirMelhorPontuacao()
@@ -145,5 +154,10 @@ public class Jogo : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         Time.timeScale = 1f;
+    }
+
+    private void LiberarReiniciarJogo()
+    {
+        _reiniciarJogoLiberado = true;
     }
 }

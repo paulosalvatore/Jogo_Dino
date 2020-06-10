@@ -1,12 +1,23 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Dinossauro : MonoBehaviour
 {
     [Header("Pulo")]
     [Range(0f, 180f)]
     [SerializeField]
-    private float forcaPulo = 90f;
+    private float forcaPuloFraco = 60f;
+
+    [Range(0f, 220f)]
+    [SerializeField]
+    private float forcaPuloForte = 90f;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float tempoNecessarioPuloForte = 0.2f;
+
+    private float _deltaTeclaSetaCima;
+
+    private float _deltaTeclaBarraEspaco;
 
     [SerializeField]
     private float distanciaNecessariaDoChao = 1.5f;
@@ -14,6 +25,8 @@ public class Dinossauro : MonoBehaviour
     private bool _estaNoChao;
 
     private bool _puloLiberado = true;
+
+    private bool _puloForteLiberado;
 
     private bool _puloTravado;
 
@@ -35,7 +48,6 @@ public class Dinossauro : MonoBehaviour
     private float _posicaoYInicial;
 
     [Header("Componentes")]
-
     [SerializeField]
     private Rigidbody2D rb;
 
@@ -53,6 +65,93 @@ public class Dinossauro : MonoBehaviour
     private void Update()
     {
         // Travar pulo
+        TravarPulo();
+
+        // Calcular tempo da tecla pressionada
+        CalcularDeltaTeclasPulo();
+
+        // Pulo
+        Pular();
+
+        // Queda Acelerada
+        AcelerarQueda();
+
+        // Atualizar animação
+        AtualizarAnimacoes();
+
+        // Clamp Posição Y
+        ForcaPosicaoYMinima();
+    }
+
+    private void ForcaPosicaoYMinima()
+    {
+        var posicao = transform.position;
+
+        if (posicao.y < _posicaoYInicial)
+        {
+            transform.position = new Vector3(
+                posicao.x,
+                _posicaoYInicial,
+                posicao.z
+            );
+        }
+    }
+
+    private void AtualizarAnimacoes()
+    {
+        anim.SetBool("Andando", _andando);
+
+        var abaixado = _estaNoChao && Input.GetKey(KeyCode.DownArrow);
+        anim.SetBool("Abaixado", abaixado);
+    }
+
+    private void AcelerarQueda()
+    {
+        if (!_estaNoChao
+            && Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            rb.gravityScale = velocidadeQuedaAcelerada;
+        }
+        else if (_estaNoChao)
+        {
+            rb.gravityScale = velocidadeQuedaNormal;
+        }
+    }
+
+    private void Pular()
+    {
+        if (_estaNoChao
+            && _puloLiberado
+            && !_puloTravado
+            && !Input.GetKey(KeyCode.DownArrow)
+            && (Input.GetKeyDown(KeyCode.UpArrow)
+                || Input.GetKeyDown(KeyCode.Space)))
+        {
+            _puloLiberado = false;
+
+            rb.velocity = Vector2.zero;
+            rb.AddForce(forcaPuloFraco * Vector2.up);
+
+            _puloForteLiberado = true;
+
+            jogo.pularAudioSource.Play();
+        }
+        else if (_puloForteLiberado
+                 && (_deltaTeclaBarraEspaco > tempoNecessarioPuloForte ||
+                     _deltaTeclaSetaCima > tempoNecessarioPuloForte))
+        {
+            _puloForteLiberado = false;
+
+            rb.AddForce(forcaPuloForte * Vector2.up);
+        }
+        else if (!_estaNoChao && !_puloLiberado)
+        {
+            _puloLiberado = true;
+        }
+    }
+
+    private void TravarPulo()
+    {
         if (!_puloTravado && Input.GetKeyDown(KeyCode.DownArrow))
         {
             _puloTravado = true;
@@ -63,53 +162,30 @@ public class Dinossauro : MonoBehaviour
         {
             _puloTravado = false;
         }
+    }
 
-        // Pulo
-        if (_estaNoChao
-            && _puloLiberado
-            && !_puloTravado
-            && !Input.GetKey(KeyCode.DownArrow)
-            && (Input.GetKey(KeyCode.UpArrow)
-                || Input.GetKey(KeyCode.Space)))
+    private void CalcularDeltaTeclasPulo()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            _puloLiberado = false;
-
-            rb.velocity = Vector2.zero;
-            rb.AddForce(forcaPulo * Vector2.up);
-
-            jogo.pularAudioSource.Play();
-        }
-        else if (!_estaNoChao && !_puloLiberado)
-        {
-            _puloLiberado = true;
+            _puloForteLiberado = false;
+            _deltaTeclaSetaCima = 0;
         }
 
-        // Queda Acelerada
-        if (!_estaNoChao
-            && Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.gravityScale = velocidadeQuedaAcelerada;
-        }
-        else if (_estaNoChao)
-        {
-            rb.gravityScale = velocidadeQuedaNormal;
+            _puloForteLiberado = false;
+            _deltaTeclaBarraEspaco = 0;
         }
 
-        // Atualizar animação
-        anim.SetBool("Andando", _andando);
-
-        var abaixado = _estaNoChao && Input.GetKey(KeyCode.DownArrow);
-        anim.SetBool("Abaixado", abaixado);
-
-        // Clamp Posição Y
-        var posicao = transform.position;
-        if (posicao.y < _posicaoYInicial)
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            transform.position = new Vector3(
-                posicao.x,
-                _posicaoYInicial,
-                posicao.z
-            );
+            _deltaTeclaSetaCima += Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _deltaTeclaBarraEspaco += Time.deltaTime;
         }
     }
 
