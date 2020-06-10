@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -68,6 +69,7 @@ public class Jogo : MonoBehaviour
     private void Update()
     {
         // Aumentar velocidade
+
         velocidade = Mathf.Clamp(
             velocidade + modificadorAumentoVelocidade * Time.deltaTime,
             0,
@@ -137,7 +139,7 @@ public class Jogo : MonoBehaviour
             ExibirMelhorPontuacao();
         }
 
-        Invoke(nameof(LiberarReiniciarJogo), tempoLiberarReinicioJogo);
+        StartCoroutine(LiberarReiniciarJogo());
     }
 
     private void ExibirMelhorPontuacao()
@@ -156,8 +158,10 @@ public class Jogo : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    private void LiberarReiniciarJogo()
+    private IEnumerator LiberarReiniciarJogo()
     {
+        yield return new WaitForSecondsRealtime(tempoLiberarReinicioJogo);
+
         _reiniciarJogoLiberado = true;
     }
 }
